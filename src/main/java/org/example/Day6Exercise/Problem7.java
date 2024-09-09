@@ -11,30 +11,17 @@ public class Problem7 {
     public void run() {
         System.out.println("7. Get n-th day to get a warmer temperature.");
         int[] inArray = Utils.getArray(scanner);
-        int th = warmThreshold();
-        calcDays(inArray, th);
+        calcDays(inArray);
         this.scanner.close();
     }
 
-    private int warmThreshold() {
-        try {
-            System.out.print("Warm threshold : ");
-            return this.scanner.nextInt();
-        } catch (Exception e) {
-            this.scanner = new Scanner(System.in);
-            System.out.println("Input is not integer.");
-            return warmThreshold();
-        }
-    }
-
-    private void calcDays(int[] arrayInt, int th) {
+    private void calcDays(int[] arrayInt) {
         try {
             int[] days = new int[arrayInt.length];
             for (int i = 0; i < arrayInt.length; i++) {
                 for (int j = i; j < arrayInt.length; j++) {
-                    if (arrayInt[j] <= th) {
-                        days[i]++;
-                    } else {
+                    if (arrayInt[j] > arrayInt[i]) {
+                        days[i]=j-i;
                         break;
                     }
                 }
@@ -42,7 +29,7 @@ public class Problem7 {
             System.out.println("Output : " + Arrays.toString(days));
         } catch (Exception e) {
             System.out.println("Error : " + e);
-            calcDays(arrayInt, th);
+            calcDays(arrayInt);
         }
     }
 }
